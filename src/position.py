@@ -21,7 +21,7 @@ def move_x_to(x):
 	elif x_now > x:
 		for i in range(x_now - x):
 			move(West)
-			
+
 def move_y_to(y):
 	y_now = get_pos_y()
 	if y_now < y:
@@ -30,4 +30,3 @@ def move_y_to(y):
 	elif y_now > y:
 		for i in range(y_now - y):
 			move(South)
-			

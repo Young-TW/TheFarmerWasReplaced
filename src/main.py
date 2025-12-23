@@ -1,12 +1,13 @@
 import position
 import operate
+import maze
+import drone
 
 def next_line():
 	position.move_x_to(0)
 	move(North)
 
 def row():
-	get_water()
 	grass_row = [Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass]
 	tree_row = [Entities.Carrot, Entities.Sunflower, Entities.Sunflower, Entities.Grass, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree, Entities.Tree]
 	sunflower_row = [Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Sunflower, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass]
@@ -15,13 +16,26 @@ def row():
 	carrot_row = [Entities.Carrot, Entities.Sunflower, Entities.Sunflower, Entities.Tree, Entities.Tree, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Carrot, Entities.Carrot, Entities.Carrot, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass]
 	cactus_row = [Entities.Carrot, Entities.Sunflower, Entities.Sunflower, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Cactus, Entities.Grass, Entities.Grass, Entities.Grass, Entities.Grass]
 
-	for i in tree_row:
+	for i in cactus_row:
 		operate.operate_and_next(i)
 
 def main():
-	change_hat(Hats.Cactus_Hat)
 	position.move_to(0, 0)
-	loop()
+	while True:
+		# for current_row in range(12):
+		if num_drones() < max_drones():
+			drone.record_drone_place()
+			if spawn_drone(row):
+				if drone.row_have_drone[get_pos_y()] == True:
+					drone.record_drone_leave_place()
+					move(North)
+					# row()
+					drone.record_drone_place()
+				else:
+					row()
+					drone.record_drone_leave_place()
+	# spawn_drone(maze.maze1x1())
+	# loop()
 	
 def loop():
 	while 1:
