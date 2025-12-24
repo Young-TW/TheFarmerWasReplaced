@@ -43,28 +43,24 @@ if __name__ == "__main__":
 		# plant pumpkin in full area
 		map_size = get_world_size()
 		position.move_to(0, 0)
-		for x in range(map_size):
-			for y in range(map_size):
-				operate.operate(Entities.Pumpkin)
-				move(East)
-			move(North)
 		while True:
-            # find broken pumpkins in pumpkin_broken_matrix and replant
-            for x in range(map_size):
-                for y in range(map_size):
-                    if pumpkin_broken_matrix[x][y] == 1: # broken
-                        position.move_to(x, y)
-                        if not can_harvest():
-                            pumpkin_broken_matrix[x][y] = 1 # broken
-                            operate.operate(Entities.Pumpkin)
-                            all_good = False
-                        else:
-                            pumpkin_broken_matrix[x][y] = 0 # good
-            # if all pumpkin_boroken_matrix are 0, break
-            all_good = True
-            for x in range(map_size):
-                for y in range(map_size):
-                    if pumpkin_broken_matrix[x][y] == 1:
-                        all_good = False
-            if all_good:
-                break
+			# find broken pumpkins in pumpkin_broken_matrix and replant
+			for x in range(map_size):
+				for y in range(map_size):
+					if pumpkin_broken_matrix[x][y] == 1: # broken in data structure
+						position.move_to(x, y)
+						if not can_harvest():
+							pumpkin_broken_matrix[x][y] = 1 # broken in reality
+							operate.operate(Entities.Pumpkin)
+							all_good = False
+						else:
+							pumpkin_broken_matrix[x][y] = 0 # good in reality
+			# if all pumpkin_boroken_matrix are 0, break
+			all_good = True
+			for x in range(map_size):
+				for y in range(map_size):
+					if pumpkin_broken_matrix[x][y] == 1:
+						all_good = False
+			if all_good:
+				harvest()
+				break
