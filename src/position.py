@@ -30,3 +30,12 @@ def move_y_to(y):
 	elif y_now > y:
 		for i in range(y_now - y):
 			move(South)
+
+def traverse_map(operation_type):
+    map_size = get_world_size()
+    move_to(0, 0)
+    for x in range(map_size):
+        for y in range(map_size):
+			move(North)
+			operate.operate(operation_type)
+		move(East)
