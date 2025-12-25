@@ -57,6 +57,8 @@ if __name__ == "__main__":
 				for y in range(map_size):
 					if pumpkin_broken_matrix[x][y] == 1: # broken in data structure
 						position.move_to(x, y)
+						if not get_entity_type() == Entities.Pumpkin:
+							operate.operate(Entities.Pumpkin)
 						if not can_harvest():
 							pumpkin_broken_matrix[x][y] = 1 # broken in reality
 							operate.operate(Entities.Pumpkin)
